@@ -1,5 +1,5 @@
-class Book :
-    def __init__ (self, name, last_update, creation_date, recipes_list) :
+class Book:
+    def __init__(self, name, last_update, creation_date, recipes_list):
         self.name = name
         self.last_update = last_update
         self.creation_date = creation_date
@@ -27,5 +27,9 @@ class Book :
         txt = f"Recipe for {self.name}:\n"
         txt += f"Last update: {self.last_update}\n"
         txt += f"Creation date: {self.creation_date}\n"
+        txt += f"Recipes: "
+        for recipe in self.recipes_list:
+            txt += str(recipe.name)
+            txt += ", "
 
         return txt
