@@ -1,13 +1,57 @@
+def _is_valid_string(name):
+    if not name.strip() or not name.isalpha():
+        raise ValueError("Empty string or invalid name")
+    return name
+
+def _validate_cooking_lvl(cooking_lvl):
+    if not _is_number_in_range(cooking_lvl, 1, 5):
+        raise ValueError(f"'{cooking_lvl}', Cooking level must be a number between 1 and 5")
+    return cooking_lvl
+
+def _validate_cooking_time(cooking_time):
+    if not _is_number_in_range(cooking_time, 0, 2147483647):
+        raise ValueError(f"'{cooking_time}', Cooking time must be a non-negative number")
+    return cooking_time
+
+def _is_number_in_range(value, min_val, max_val):
+    if not isinstance(value, int):
+        raise ValueError(f"'{value}', Invalid number")
+    
+    if not min_val <= value <= max_val:
+        raise ValueError(f"'{value}', Number out of range")
+    return value
+
+def _is_valid_type(types):
+    valid_types = ["start", "lunch", "dessert"]
+    if types not in valid_types:
+        raise ValueError(f"'{types}', Invalid type: {valid_types}'")
+    return types
+
+def _validate_ingredients(ingredients):
+    if not isinstance(ingredients, list):
+        raise ValueError("Ingredients must be a list")
+    
+    for ingredient in ingredients:
+        _is_valid_string(ingredient)
+    
+    return ingredients
+
 class Recipe:
     def __init__(self, name, cooking_lvl, cooking_time, ingredients, description, recipe_type):
-        self.name = name
-        self.cooking_lvl = cooking_lvl
-        self.cooking_time = cooking_time
-        self.ingredients = ingredients
-        self.description = description
-        self.recipe_type = recipe_type
-    
-    def __str__(self):
+        # name
+        self.name = _is_valid_string(name)
+        # range from 1 to 5
+        self.cooking_lvl = _validate_cooking_lvl(cooking_lvl)
+        # in minutes (no negative numbers)
+        self.cooking_time = _validate_cooking_time(cooking_time)
+        # list of ingredients (represented string)
+        self.ingredients = _validate_ingredients(ingredients)
+        # description of the recipe (can be empty)
+        self.description = description if description else "No description"
+        # start, lunch, dessert
+        self.recipe_type = _is_valid_type(recipe_type)
+
+    def __str__(self) -> str:
         """Return the string to print with the recipe info"""
         
         txt = f"\nRecipe for {self.name}:\n"
