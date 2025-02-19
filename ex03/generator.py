@@ -8,16 +8,18 @@ def manual_shuffle(lst):
     # Copy the list
     shuffled_lst = lst[:]
     
-    # Shuffle the list
+    # Shuffle the list using Fisher-Yates (Knuth shuffle)
     n = len(shuffled_lst)
-    for i in range(n):
-        # Pick a random index
-        j = random.randint(i, n - 1)
-        # Swap the elements
+    for i in range(n - 1, 0, -1):
+        # Pick a random index from 0 to i
+        j = random.randint(0, i)
+        # Swap the elements at i and j
         shuffled_lst[i], shuffled_lst[j] = shuffled_lst[j], shuffled_lst[i]
-    
+        
+    # Yield the shuffled elements one by one
     for word in shuffled_lst:
         yield word
+
 
 
 def manual_unique(text):
@@ -31,6 +33,7 @@ def manual_unique(text):
         # Check if the word is unique
         if word not in seen:
             seen.add(word)
+            # Yield the shuffled elements one by one
             yield word
 
 
@@ -40,6 +43,8 @@ def manual_ordered(text):
     """
     # Sort the list
     sorted_words = sorted(text)
+
+    # Yield the shuffled elements one by one
     for word in sorted_words:
         yield word
 
@@ -71,6 +76,18 @@ def generator(text, sep=" ", option=None):
             yield word
 
 
+def print_partial_generator(gen, limit=100):
+    """
+    Print limited number of elements from a generator.
+    """
+
+    count = 0
+    for word in gen:
+        if count >= limit:
+            break
+        print(word)
+        count += 1
+
 # Main
 if __name__ == "__main__":
     try:
@@ -98,6 +115,27 @@ if __name__ == "__main__":
         print("\n-> Test generator with no option :\n" + str(text3))
         for word in generator(text3, sep="."):
             print(word)
+    
+    except Exception as e:
+        print(e)
+
+
+    try:
+        text1 = "Le Lorem Ipsum est simplement du faux texte."
+
+        # Test partial generator
+        print("\n-> Test partial generator with no option :\n" + text1)
+        gen = generator(text1, sep=" ")
+        print_partial_generator(gen, limit=5)
+    
+        print("\n-> Test generator with option shuffle:\n" + text1)
+        gen = generator(text1, sep=" ", option="shuffle")
+        print_partial_generator(gen)
+        
+        print("\n-> Test partial generator with option ordered:\n" + text1)
+        gen = generator(text1, sep=" ", option="ordered")
+        print_partial_generator(gen, limit=1)
+
 
     except Exception as e:
         print(e)
