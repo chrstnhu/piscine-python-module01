@@ -146,8 +146,11 @@ class Vector:
         """
         Returns a string representation of a vector for printing.
         """
-        return f"Vector({self.data})"
+        # Flattening the 2D list to a 1D list
+        flattened = [item[0] for item in self.data]
+        return f"[[{', '.join(map(str, flattened))}]]"
 
+    #  USEFUL FOR INTERACTIVE SESSION (python3 shell)
     def __repr__(self):
         """
         Returns a string representation of a vector for interactive session.
@@ -155,6 +158,27 @@ class Vector:
         return self.__str__()
 
     
-    # def dot(self, other):
+    def dot(self, other):
+        """
+        Computes the dot product of two vectors.
+        """
+        if self.shape != other.shape:
+            raise ValueError("Cannot compute dot product of vectors of different lengths")
+        result = 0
+        for i in range(len(self.data)):
+            for j in range(len(self.data[i])):
+                result += self.data[i][j] * other.data[i][j]
+        return result
 
-    # def T(self):
+    def T(self):
+        """
+        Transposes the vector.
+        If it's a column vector, it becomes a row vector and vice versa.
+        """
+        # Row to column
+        if len(self.data) == 1:
+            return Vector([[self.data[0][i]] for i in range(len(self.data[0]))])
+        # Column to row
+        else:
+            return Vector([self.data[i] for i in range(len(self.data))])
+
