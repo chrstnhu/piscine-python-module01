@@ -3,10 +3,10 @@ class Vector:
         self.data = data
 
         if len(data) > 0 and len(data[0]) == 1:
-            self.values = data #column vector
+            self.values = data # column vector
             self.shape = (len(data), 1)
         elif len(data) == 1 and isinstance(data[0], list):
-            self.values = data #row vector
+            self.values = data # row vector
             self.shape = (1, len(data[0]))
         else:
             raise ValueError("Invalid vector shape")

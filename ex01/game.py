@@ -11,6 +11,7 @@ class Stark(GotCharacter):
     """
     A class representing the Stark family. Or when bad things happen to good people.
     """
+    
     def __init__(self, first_name=None, is_alive=True):
         super().__init__(first_name=first_name, is_alive=is_alive)
         self.family_name = "Stark"
@@ -35,6 +36,7 @@ class Parker(GotCharacter):
     """
     A class representing the Stark family. Or when bad things happen to good people.
     """
+
     def __init__(self, first_name=None, is_alive=True):
         super().__init__(first_name=first_name, is_alive=is_alive)
         self.family_name = "Parker"
@@ -55,8 +57,10 @@ class Parker(GotCharacter):
 
         return txt
 
+# Main
 if __name__ == "__main__" :
 
+    # Test Stark
     arya = Stark("Arya")
 
     print("-> Information about Arya Stark:")
@@ -75,6 +79,7 @@ if __name__ == "__main__" :
     print("\n-> Information of the class:")
     print(arya.__doc__)
 
+    # Test Parker
     peter = Parker("Peter")
     print("\n-> Information about Peter Parker:")
     print(peter.__dict__)

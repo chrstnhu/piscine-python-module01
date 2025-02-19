@@ -48,16 +48,22 @@ if __name__ == "__main__" :
     print("\n ===== Try value and shape =====")
     try:
         # Column vector of shape (n, 1)
+
         print(Vector([[0.0], [1.0], [2.0], [3.0]]).shape)
         # Expected output
         # (4,1)
+
         print(Vector([[0.0], [1.0], [2.0], [3.0]]).values)
         # Expected output
         # [[0.0], [1.0], [2.0], [3.0]]
+
+
         # Row vector of shape (1, n)
+
         print(Vector([[0.0, 1.0, 2.0, 3.0]]).shape)
         # Expected output
         # (1,4)
+
         print(Vector([[0.0, 1.0, 2.0, 3.0]]).values)
         # Expected output
         # [[0.0, 1.0, 2.0, 3.0]]
