@@ -42,8 +42,8 @@ if __name__ == "__main__" :
     except ValueError as e:
         print(e)
 
-    # Invalid recipe
 
+    # Invalid recipe
     try:
         print("\n====== Invalid Recipe name ======")
         invalid_recipe = Recipe("", 3, 60, "pomme", "Une tourte aux fruits", "dessert")
