@@ -3,7 +3,7 @@ import random
 
 def manual_shuffle(lst):
     """
-    Shuffle the list.
+    Shuffle the list and yield the elements one by one.
     """
     # Copy the list
     shuffled_lst = lst[:]
@@ -16,33 +16,32 @@ def manual_shuffle(lst):
         # Swap the elements
         shuffled_lst[i], shuffled_lst[j] = shuffled_lst[j], shuffled_lst[i]
     
-    return shuffled_lst
+    for word in shuffled_lst:
+        yield word
+
 
 def manual_unique(text):
     """
     Removes duplicates from the list.
     """
-    words = text.split()
+    # Save the words in a set
+    seen = set()
 
-    # Create a empty list
-    unique_words = []
-    for word in words:
-        # Check if the word is unique and append
-        if word not in unique_words:
-            unique_words.append(word)
-    
-    return unique_words
+    for word in text:
+        # Check if the word is unique
+        if word not in seen:
+            seen.add(word)
+            yield word
+
 
 def manual_ordered(text):
     """
     Orders the list in ascending order.
     """
-    words = text.split()
-
     # Sort the list
-    sorted_words = sorted(words)
-
-    return sorted_words
+    sorted_words = sorted(text)
+    for word in sorted_words:
+        yield word
 
 
 def generator(text, sep=" ", option=None):
@@ -62,17 +61,11 @@ def generator(text, sep=" ", option=None):
     words = text.split(sep)
     
     if option == "shuffle":
-        shuffled_text = manual_shuffle(words)        
-        for word in shuffled_text:
-            yield word
+        yield from manual_shuffle(words)
     elif option == "unique":
-        unique_text = manual_unique(text) 
-        for word in unique_text:
-            yield word
+        yield from manual_unique(words)
     elif option == "ordered":
-        ordered_text = manual_ordered(text)
-        for word in ordered_text:
-            yield word
+        yield from manual_ordered(words)
     else:
         for word in words:
             yield word
